@@ -122,8 +122,8 @@ ReactDOM.render(<Person name={p1.name} sex={p1.sex} age={p1.age}/>,document.getE
 ## 另外一种形式， 防止写的太长， jsx的展开语法 {...p1}
 ## 模拟后端返回的数据，
 const p1 = {
-	name:'强哥',
-	sex:'女',
+    name:'强哥',
+    sex:'女',
     age:19
 }
 ReactDOM.render(<Person {...p1}/>,document.getElementById('test2'))
@@ -149,13 +149,13 @@ const cloneObj = {...obj,...obj2}
 ## static 放在类上，相当于Persion.propTypes
 
 static propTypes = {
-	name:PropTypes.string.isRequired,
-	age:PropTypes.number,
-	sex:PropTypes.string
+    name:PropTypes.string.isRequired,
+    age:PropTypes.number,
+    sex:PropTypes.string
 }
 
 static defaultProps = {
-	age:18
+    age:18
 }
 ```
 
@@ -168,38 +168,37 @@ static defaultProps = {
 ```javascript
 # 字符串形式的ref， 已过时
 <script type="text/babel">
-	class Demo extends React.Component{
-		render(){
-			return (
-				<div>
-					<input type="text" ref="input1"/>&nbsp;
-					<button onClick={this.show}>点我提示左侧数据</button>&nbsp;
-					<input type="text" ref="input2" onBlur={this.show2} placeholder="失去焦点提示数据"/>
-				</div>
-			)
-		}
-		show = ()=>{
-			// const {refs:{input1:{value:a}}} = this
-			const {input1} = this.refs
-			alert(input1.value)
-		}
+    class Demo extends React.Component{
+        render(){
+            return (
+                <div>
+                    <input type="text" ref="input1"/> 
+                    <button onClick={this.show}>点我提示左侧数据</button> 
+                    <input type="text" ref="input2" onBlur={this.show2} placeholder="失去焦点提示数据"/>
+                </div>
+            )
+        }
+        show = ()=>{
+            // const {refs:{input1:{value:a}}} = this
+            const {input1} = this.refs
+            alert(input1.value)
+        }
 
-		show2 = ()=>{
-			const {input2} = this.refs
-			alert(input2.value)
-		}
-	}
-	ReactDOM.render(<Demo/>,document.getElementById('test'))
+        show2 = ()=>{
+            const {input2} = this.refs
+            alert(input2.value)
+        }
+    }
+    ReactDOM.render(<Demo/>,document.getElementById('test'))
 </script>
 
 ## 回调函数方式
-<input type="text" ref={c => this.input1 = c}/>&nbsp;
+<input type="text" ref={c => this.input1 = c}/> 
 把标签放到this属性上，input1可以拿到， c是传入这个回调函数的参数，是当前标签
 
 ## createRef方式
 container = React.createRef()
-<input type="text" ref={this.container} />&nbsp;
-
+<input type="text" ref={this.container} /> 
 ```
 
 #### 关于类式组件的构造器
@@ -207,9 +206,9 @@ container = React.createRef()
 ```javascript
 ## 参数props接收标签属性， 直接使用props即可，不需要this，
 constructor(props){
-	// console.log('constructor',props)
-	super()
-	console.log('constructor',props)
+    // console.log('constructor',props)
+    super()
+    console.log('constructor',props)
 }
 ```
 
@@ -219,21 +218,21 @@ js 中自定义事件
 
 ```javascript
 <body>
-	<div id="div" style="background-color: orange; width: 200px; height: 200px;">我是一些内容</div>
+    <div id="div" style="background-color: orange; width: 200px; height: 200px;">我是一些内容</div>
 
-	<script type="text/javascript" >
-		const div = document.getElementById('div')
-		//创建一个haha事件
-		const haha = new Event('onClick')
+    <script type="text/javascript" >
+        const div = document.getElementById('div')
+        //创建一个haha事件
+        const haha = new Event('onClick')
 
-		div.addEventListener('haha',()=>{
-			console.log('你笑了')
-		})
+        div.addEventListener('haha',()=>{
+            console.log('你笑了')
+        })
         ## 定时器，setTimeout
-		setTimeout(()=>{
-			div.dispatchEvent(haha)
-		},2000)
-	</script>
+        setTimeout(()=>{
+            div.dispatchEvent(haha)
+        },2000)
+    </script>
 </body>
 ```
 
@@ -241,45 +240,111 @@ React中事件处理, 事件冒泡
 
 ```javascript
 <script type="text/babel">
-	/* 
-		1.	通过onXxx属性指定事件处理函数(注意大小写) 
-						1).React使用的是自定义(合成)事件, 而不是使用的原生DOM事件 ——————  为了更好的兼容性
-						2).React中的事件是通过事件委托方式处理的(委托给组件最外层的元素) ———————— 效率高
-		2.	通过event.target得到发生事件的DOM元素对象
-	*/
+    /* 
+        1.    通过onXxx属性指定事件处理函数(注意大小写) 
+                        1).React使用的是自定义(合成)事件, 而不是使用的原生DOM事件 ——————  为了更好的兼容性
+                        2).React中的事件是通过事件委托方式处理的(委托给组件最外层的元素) ———————— 效率高
+        2.    通过event.target得到发生事件的DOM元素对象
+    */
 
-	class Demo extends React.Component{
-		render(){
-			return (
-				<div className="container" onClick={this.test}>
-					<button onClick={this.show1}>按钮1</button>	
-					<button onClick={this.show2}>按钮222222</button>
-					<div onClick={this.show3} className="child">xxxx</div>	
-				</div>
-			)
-		}
-		show1 = (event)=>{
-			// 接到的event是React自定义的事件对象,
+    class Demo extends React.Component{
+        render(){
+            return (
+                <div className="container" onClick={this.test}>
+                    <button onClick={this.show1}>按钮1</button>    
+                    <button onClick={this.show2}>按钮222222</button>
+                    <div onClick={this.show3} className="child">xxxx</div>    
+                </div>
+            )
+        }
+        show1 = (event)=>{
+            // 接到的event是React自定义的事件对象,
             // 这个event拥有着和原生event同样的属性
-			event.stopPropagation()
-			console.log('按钮1',event)
-		}
-		show2 = (event)=>{
-			console.log(event.target.innerText)
-		}
-		show3 = ()=>{
-			console.log('xxxxx')
-		}
-		test = ()=>{
-			console.log('test')
-		}
-	}
+            event.stopPropagation()
+            console.log('按钮1',event)
+        }
+        show2 = (event)=>{
+            console.log(event.target.innerText)
+        }
+        show3 = ()=>{
+            console.log('xxxxx')
+        }
+        test = ()=>{
+            console.log('test')
+        }
+    }
 
-	ReactDOM.render(<Demo/>,document.getElementById('test'))
+    ReactDOM.render(<Demo/>,document.getElementById('test'))
 
 </script>
 ```
 
 ## 1.2  收集表单
 
-### 1.
+### 1.2.1. 非受控组件收集
+
+* 非受控组件：表单中的数据，在需要的时候，“现用现取” (通过ref获得到节点，进而访问到value值)
+
+* 受控指的是和state建立联系，
+
+```javascript
+<script type="text/babel">
+	class Login extends React.Component{
+		render(){
+			return (
+				<form onSubmit={this.handleLogin}>
+					用户名：<input type="text" ref={c => this.userNameNode = c}/><br/><br/>
+					密码：<input type="password" ref={c => this.passwordNode = c}/><br/><br/>
+					<button>登录</button>
+				</form>
+			)
+		}
+		handleLogin = (event)=>{
+			event.preventDefault()   /*防止表单提交页面刷新默认行为*/
+			const {userNameNode,passwordNode} = this
+			alert(`用户名是${userNameNode.value}，密码是${passwordNode.value}`)
+		}
+	}
+
+	ReactDOM.render(<Login/>,document.getElementById('test'))
+</script>
+```
+
+### 1.2.2. 受控组件收集
+
+* 受控组件：表单中输入类的DOM，随着用户的输入，将值收集到state中，那么就称为受控组件
+
+```javascript
+class Login extends React.Component{
+	state = {
+		username:'',
+		password:''
+	}
+	
+	render(){
+		return (
+			<form onSubmit={this.handleLogin}>
+				用户名：<input type="text" onChange={this.saveUsername}/><br/><br/>
+				密码：<input type="password" onChange={this.savePassword}/><br/><br/>
+				<button>登录</button>
+			</form>
+		)
+	}
+
+	//保存用户名到state中
+	saveUsername = (event)=>{
+		this.setState({username:event.target.value}) //setState不会造成无关数据的丢失
+	}
+
+	//保存密码到state中
+	savePassword = (event)=>{
+		this.setState({password:event.target.value})
+	}
+
+	handleLogin = (event)=>{
+		event.preventDefault()
+		const {username,password} = this.state
+		alert(`用户名是${username}，密码是${password}`)
+	}
+}
+```
