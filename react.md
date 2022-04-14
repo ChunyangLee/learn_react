@@ -348,3 +348,58 @@ class Login extends React.Component{
 	}
 }
 ```
+
+
+
+-----------------------------------------4.13-------------------------------------------------
+
+## React新钩子函数
+
+### getSnapshotBeforeUpdate
+
+```javascript
+## 用于在dom上到页面上之前，拿到当前页面上dom的信息
+## getSnapshotBeforeUpdate 和 componentDidupdate 必须一起使用
+## 必须返回一个快照值，作为参数传给 componentDidupdate 
+```
+
+# 保持滚动条例子
+
+```css
+## 数据超出盒子大小时，增加滚动条
+## 在容器盒子上增加样式 overflow即可，
+<style>
+	.list{
+		width: 200px;
+		height: 150px;
+		overflow: auto;
+	}
+	.item{
+		width: 100%;
+		height: 30px;
+		line-height: 30px;
+		background-color: skyblue;
+	}
+</style>
+```
+
+```javascript
+## 盒子高度150， 里面数据是210，
+## js 操作盒子数据移动，
+list.scrollTop
+scrollHeight
+
+<div className="list">
+	<div className="item">新闻1</div>	
+	<div className="item">新闻2</div>	
+	<div className="item">新闻3</div>	
+	<div className="item">新闻4</div>	
+	<div className="item">新闻5</div>
+	<div className="item">新闻6</div>	
+	<div className="item">新闻7</div>		
+</div>
+```
+
+
+
+# 4. react脚手架
